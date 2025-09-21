@@ -40,7 +40,6 @@ function loco() {
 
 loco();
 
-
 var clutter = "";
 
 document
@@ -63,3 +62,151 @@ gsap.to("#page2>h1>span", {
   stagger: 0.2,
   color: `#fff`,
 });
+
+function canvas() {
+  const canvas = document.querySelector("#page3>canvas");
+  const context = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    render();
+  });
+
+  function files(index) {
+    var data = `
+  /assets/frames/frames00007.png
+  /assets/frames/frames00010.png
+  /assets/frames/frames00013.png
+  /assets/frames/frames00016.png
+  /assets/frames/frames00019.png
+  /assets/frames/frames00022.png
+  /assets/frames/frames00025.png
+  /assets/frames/frames00028.png
+  /assets/frames/frames00031.png
+  /assets/frames/frames00034.png
+  /assets/frames/frames00037.png
+  /assets/frames/frames00040.png
+  /assets/frames/frames00043.png
+  /assets/frames/frames00046.png
+  /assets/frames/frames00049.png
+  /assets/frames/frames00052.png
+  /assets/frames/frames00055.png
+  /assets/frames/frames00058.png
+  /assets/frames/frames00061.png
+  /assets/frames/frames00064.png
+  /assets/frames/frames00067.png
+  /assets/frames/frames00070.png
+  /assets/frames/frames00073.png
+  /assets/frames/frames00076.png
+  /assets/frames/frames00079.png
+  /assets/frames/frames00082.png
+  /assets/frames/frames00085.png
+  /assets/frames/frames00088.png
+  /assets/frames/frames00091.png
+  /assets/frames/frames00094.png
+  /assets/frames/frames00097.png
+  /assets/frames/frames00100.png
+  /assets/frames/frames00103.png
+  /assets/frames/frames00106.png
+  /assets/frames/frames00109.png
+  /assets/frames/frames00112.png
+  /assets/frames/frames00115.png
+  /assets/frames/frames00118.png
+  /assets/frames/frames00121.png
+  /assets/frames/frames00124.png
+  /assets/frames/frames00127.png
+  /assets/frames/frames00130.png
+  /assets/frames/frames00133.png
+  /assets/frames/frames00136.png
+  /assets/frames/frames00139.png
+  /assets/frames/frames00142.png
+  /assets/frames/frames00145.png
+  /assets/frames/frames00148.png
+  /assets/frames/frames00151.png
+  /assets/frames/frames00154.png
+  /assets/frames/frames00157.png
+  /assets/frames/frames00160.png
+  /assets/frames/frames00163.png
+  /assets/frames/frames00166.png
+  /assets/frames/frames00169.png
+  /assets/frames/frames00172.png
+  /assets/frames/frames00175.png
+  /assets/frames/frames00178.png
+  /assets/frames/frames00181.png
+  /assets/frames/frames00184.png
+  /assets/frames/frames00187.png
+  /assets/frames/frames00190.png
+  /assets/frames/frames00193.png
+  /assets/frames/frames00196.png
+  /assets/frames/frames00199.png
+  /assets/frames/frames00202.png
+ `;
+    return data.split("\n")[index];
+  }
+
+  const frameCount = 67;
+
+  const images = [];
+  const imageSeq = {
+    frame: 1,
+  };
+
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = files(i);
+    images.push(img);
+  }
+
+  gsap.to(imageSeq, {
+    frame: frameCount - 1,
+    snap: "frame",
+    ease: `none`,
+    scrollTrigger: {
+      scrub: 0.5,
+      trigger: `#page3`,
+      start: `top top`,
+      end: `250% top`,
+      scroller: `#main`,
+    },
+    onUpdate: render,
+  });
+
+  images[1].onload = render;
+
+  function render() {
+    scaleImage(images[imageSeq.frame], context);
+  }
+
+  function scaleImage(img, ctx) {
+    var canvas = ctx.canvas;
+    var hRatio = canvas.width / img.width;
+    var vRatio = canvas.height / img.height;
+    var ratio = Math.max(hRatio, vRatio);
+    var centerShift_x = (canvas.width - img.width * ratio) / 2;
+    var centerShift_y = (canvas.height - img.height * ratio) / 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      img.width,
+      img.height,
+      centerShift_x,
+      centerShift_y,
+      img.width * ratio,
+      img.height * ratio
+    );
+  }
+  ScrollTrigger.create({
+    trigger: "#page3",
+    pin: true,
+    scroller: `#main`,
+    start: `top top`,
+    end: `250% top`,
+  });
+}
+canvas();
