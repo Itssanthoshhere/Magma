@@ -1,19 +1,29 @@
+/* ==================== GLOBAL STYLES ==================== */
+
+/* Reset default margin, padding and set box-sizing to border-box */
 * {
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
 }
+
+/* Ensure html and body take full viewport size */
 html,
 body {
   height: 100%;
   width: 100%;
 }
+
+/* Main wrapper */
 #main {
   position: relative;
-  overflow: hidden;
-  background-color: #1137ca;
+  overflow: hidden; /* Hide overflowing content for smooth scroll effects */
+  background-color: #1137ca; /* Default background color */
 }
 
+/* ==================== FONTS ==================== */
+
+/* Custom font definitions */
 @font-face {
   font-family: a;
   src: url(/assets/fonts/jost-variable.ttf);
@@ -29,16 +39,21 @@ body {
   src: url(/assets/fonts/KFOmCnqEu92Fr1Mu4mxK.ttf);
 }
 
+/* ==================== PAGE 1 (HERO SECTION) ==================== */
 #page1 {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
+
+/* Hero video covering full section */
 #page1 > video {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
+/* Navigation bar styling */
 #page1 > nav {
   display: flex;
   align-items: center;
@@ -48,10 +63,14 @@ body {
   height: 10vh;
   width: 100vw;
 }
+
+/* Logo in navbar */
 #page1 > nav > img {
   margin-top: -1.7vw;
   width: 9%;
 }
+
+/* Right-side buttons in nav */
 #right-nav > button {
   padding: 10px 20px;
   border-radius: 50px;
@@ -62,6 +81,7 @@ body {
   font-size: 15px;
 }
 
+/* Hero text section at bottom-left */
 .bottom-page1 {
   position: absolute;
   bottom: 5%;
@@ -69,6 +89,7 @@ body {
   width: 50vw;
   left: 10%;
 }
+
 .bottom-page1 > h1 {
   font-family: a;
   font-size: 5vw;
@@ -76,6 +97,8 @@ body {
   line-height: 1;
   color: #fff;
 }
+
+/* Inner section for CTA button and description */
 .bottom-page1-inner {
   position: absolute;
   bottom: 0%;
@@ -88,6 +111,7 @@ body {
   justify-content: space-between;
   font-family: a;
 }
+
 .bottom-page1-inner > button {
   padding: 10px 20px;
   border: none;
@@ -97,12 +121,14 @@ body {
   font-size: 16px;
   font-family: b;
 }
+
 .bottom-page1-inner > h4 {
   font-size: 1.3vw;
   font-weight: 100;
   color: #fff;
 }
 
+/* ==================== PAGE 2 ==================== */
 #page2 {
   display: flex;
   align-items: start;
@@ -116,10 +142,12 @@ body {
   color: #fff;
   background-color: #0a3cce;
 }
+
 #page2 > h2 {
   margin-bottom: 3vw;
   font-weight: 100;
 }
+
 #page2 > h1 {
   font-weight: 100;
   line-height: 1.3;
@@ -128,19 +156,23 @@ body {
   color: #dadada69;
 }
 
+/* ==================== PAGE 3 (CANVAS SECTION) ==================== */
 #page3 {
   position: relative;
   height: 100vh;
   width: 100vw;
 }
+
 #page3 > canvas {
   max-height: 100vh;
   max-width: 100vw;
   position: relative;
 }
 
+/* ==================== PAGE 4 ==================== */
 #page4 {
   display: flex;
+  flex-direction: column;
   align-items: start;
   justify-content: center;
   flex-direction: column;
@@ -150,12 +182,14 @@ body {
   background-color: #1137ca;
   font-family: a;
 }
+
 #page4 > h3 {
   margin-left: 15vw;
   margin-bottom: 2vw;
   font-weight: 100;
   color: #fff;
 }
+
 #page4 > h1 {
   margin-left: 15vw;
   width: 70%;
@@ -164,19 +198,23 @@ body {
   color: #ffffff81;
 }
 
+/* ==================== PAGE 5 (CANVAS) ==================== */
 #page5 {
   position: relative;
   height: 100vh;
   width: 100vw;
 }
+
 #page5 > canvas {
   position: relative;
   max-width: 100vw;
   max-height: 100vh;
 }
 
+/* ==================== PAGE 6 ==================== */
 #page6 {
   display: flex;
+  flex-direction: column;
   align-items: start;
   justify-content: center;
   position: relative;
@@ -186,12 +224,14 @@ body {
   flex-direction: column;
   font-family: a;
 }
+
 #page6 > h3 {
   margin-left: 15vw;
   font-weight: 100;
   color: #fff;
   margin-bottom: 2vw;
 }
+
 #page6 > h1 {
   margin-left: 15vw;
   font-size: 3vw;
@@ -200,17 +240,21 @@ body {
   color: #ffffff53;
 }
 
+/* ==================== PAGE 7 (CIRCLE ANIMATION + CANVAS) ==================== */
 #page7 {
   position: relative;
   height: 100vh;
   width: 100vw;
   background-color: #0a3cce;
 }
+
 #page7 > canvas {
   position: relative;
   max-width: 100vw;
   max-height: 100vh;
 }
+
+/* Outer circle */
 .page7-cir {
   display: flex;
   align-items: center;
@@ -225,6 +269,8 @@ body {
   border-radius: 50%;
   border: 1px solid #fff;
 }
+
+/* Inner circle */
 .page7-cir-inner {
   height: 70%;
   width: 70%;
@@ -233,17 +279,20 @@ body {
   border: 1px solid #fff;
 }
 
+/* ==================== PAGE 8 (VIDEO + CTA) ==================== */
 #page8 {
   position: relative;
   height: 100vh;
   width: 100vw;
   background-color: #0a3cce;
 }
+
 #page8 > video {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
 .page8-bottom {
   position: absolute;
   bottom: 5%;
@@ -252,12 +301,14 @@ body {
   text-align: center;
   font-family: a;
 }
+
 .page8-bottom > h1 {
   color: #fff;
   margin-bottom: 2vw;
   font-size: 5vw;
   font-weight: 100;
 }
+
 .page8-bottom > button {
   padding: 20px 30px;
   border-radius: 50px;
@@ -266,6 +317,7 @@ body {
   color: #0a3cce;
 }
 
+/* ==================== PAGE 9 ==================== */
 #page9 {
   display: flex;
   position: relative;
@@ -273,12 +325,14 @@ body {
   width: 100vw;
   background-color: #0a3cce;
 }
+
 .left9 {
   height: 100%;
   width: 40%;
   position: relative;
   font-family: a;
 }
+
 .left9 > h1 {
   position: absolute;
   top: 40%;
@@ -289,11 +343,13 @@ body {
   color: #fff;
   line-height: 1;
 }
+
 .right9 {
   height: 100%;
   width: 60%;
   position: relative;
 }
+
 .right9-center {
   height: 50%;
   width: 85%;
@@ -306,43 +362,52 @@ body {
   left: 5%;
 }
 
+/* ==================== PAGE 10 (WEB3 PLATFORM INFO) ==================== */
 #page10 {
   position: relative;
   height: 100vh;
   width: 100vw;
   background-color: #0a3cce;
 }
+
+/* Right section containing multiple info boxes */
 .right10 {
   height: 100%;
   width: 60%;
   position: relative;
-  left: 40%;
+  left: 40%; /* Push to the right of the screen */
 }
+
+/* Each info box inside the right section */
 .right10-inner {
   display: flex;
   align-items: start;
   flex-direction: column;
-  height: 33.3%;
+  height: 33.3%; /* Divide equally among 3 boxes */
   width: 100%;
   font-family: a;
   color: #fff;
 }
+
 .right10-inner > h1 {
   font-size: 2vw;
 }
+
 .right10-inner > p {
   margin-top: 2vw;
   font-size: 1.3vw;
   width: 80%;
 }
 
+/* ==================== PAGE 11 (RECENT BLOG) ==================== */
 #page11 {
   position: relative;
-  height: 110vh;
+  height: 110vh; /* Slightly larger than full viewport */
   width: 100vw;
   background-color: #fff;
   font-family: a;
 }
+
 #page11 > h1 {
   position: absolute;
   top: 5%;
@@ -351,6 +416,8 @@ body {
   color: #000;
   font-weight: 100;
 }
+
+/* Blog post container */
 .page11-inner {
   display: flex;
   top: 18%;
@@ -359,6 +426,8 @@ body {
   height: 24%;
   width: 100%;
 }
+
+/* Left image of the blog post */
 .left11 {
   position: relative;
   height: 100%;
@@ -367,11 +436,14 @@ body {
   border-radius: 10px;
   overflow: hidden;
 }
+
 .left11 > img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
+/* Right text section of the blog post */
 .right11 {
   padding-top: 5vw;
   color: #000;
@@ -380,19 +452,23 @@ body {
   height: 100%;
   width: 50%;
 }
+
 .right11 > h4 {
   font-weight: 100;
 }
+
 .right11 > h1 {
   font-size: 2vw;
 }
 
+/* ==================== PAGE 12 (FEATURED IN) ==================== */
 #page12 {
   position: relative;
   height: 100vh;
   width: 100vw;
   background-color: #02268e;
 }
+
 .page12-inner {
   position: absolute;
   top: 20%;
@@ -400,14 +476,17 @@ body {
   color: #fff;
   font-family: a;
 }
+
 .page12-inner > h1 {
   font-size: 5vw;
   font-weight: 100;
 }
+
 .page12-inner > p {
   font-size: 1.3vw;
 }
 
+/* ==================== PAGE 13 (EARLY ADOPTER CTA) ==================== */
 #page13 {
   position: relative;
   height: 50vh;
@@ -417,11 +496,13 @@ body {
   font-family: a;
   padding: 7vw 10vw;
 }
+
 #page13 > h1 {
   font-size: 5vw;
   line-height: 1;
   font-weight: 100;
 }
+
 #page13 > button {
   padding: 18px 30px;
   border: none;
@@ -431,12 +512,15 @@ body {
   margin-top: 2vw;
 }
 
+/* ==================== PAGE 14 (SOCIAL LINKS) ==================== */
 #page14 {
   position: relative;
   height: 60vh;
   width: 100vw;
   background-color: #000;
 }
+
+/* Each social link container */
 .page14-inner {
   position: relative;
   display: flex;
@@ -450,12 +534,16 @@ body {
   border-top: 0.5px solid #ffffff5c;
   border-bottom: 0.5px solid #ffffff48;
 }
+
+/* Social icon styling */
 .page14-inner > i {
   font-weight: 100;
   font-size: 2.4vw;
   position: relative;
   z-index: 9999;
 }
+
+/* Social text styling */
 .page14-inner > h1 {
   font-size: 3vw;
   font-weight: 100;
@@ -463,6 +551,7 @@ body {
   z-index: 9999;
 }
 
+/* Background hover effect for social links */
 .center14 {
   height: 0%;
   width: 100%;
@@ -474,6 +563,7 @@ body {
   transition: all ease 0.5s;
 }
 
+/* Hover animation to expand background */
 .page14-inner:hover .center14 {
   height: 100%;
 }

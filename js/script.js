@@ -1,22 +1,24 @@
+// Function to initialize Locomotive Scroll and integrate it with GSAP ScrollTrigger
 function loco() {
+  // Register ScrollTrigger plugin with GSAP
   gsap.registerPlugin(ScrollTrigger);
 
-  // Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
-
+  // Initialize Locomotive Scroll on the #main container with smooth scrolling
   const locoScroll = new LocomotiveScroll({
     el: document.querySelector("#main"),
     smooth: true,
   });
-  // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
+
+  // Sync ScrollTrigger with Locomotive Scroll updates
   locoScroll.on("scroll", ScrollTrigger.update);
 
-  // tell ScrollTrigger to use these proxy methods for the "#main" element since Locomotive Scroll is hijacking things
+  // Configure ScrollTrigger to use Locomotive Scroll's methods for scrolling
   ScrollTrigger.scrollerProxy("#main", {
     scrollTop(value) {
       return arguments.length
-        ? locoScroll.scrollTo(value, 0, 0)
-        : locoScroll.scroll.instance.scroll.y;
-    }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+        ? locoScroll.scrollTo(value, 0, 0) // Set scroll position
+        : locoScroll.scroll.instance.scroll.y; // Get scroll position
+    },
     getBoundingClientRect() {
       return {
         top: 0,
@@ -25,57 +27,65 @@ function loco() {
         height: window.innerHeight,
       };
     },
-    // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
+    // Determine pin type based on whether Locomotive Scroll applies a transform
     pinType: document.querySelector("#main").style.transform
       ? "transform"
       : "fixed",
   });
 
-  // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
+  // Refresh Locomotive Scroll whenever ScrollTrigger refreshes
   ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 
-  // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
+  // Initial refresh to ensure ScrollTrigger and Locomotive Scroll are synced
   ScrollTrigger.refresh();
 }
 
+// Call the loco function to initialize scrolling
 loco();
 
-var clutter = "";
+// ====================== PAGE 2 TEXT ANIMATION ======================
 
+// Split the text in #page2>h1 into spans for animation
+var clutter = "";
 document
   .querySelector("#page2>h1")
   .textContent.split("")
   .forEach(function (dets) {
     clutter += `<span>${dets}</span>`;
-
     document.querySelector("#page2>h1").innerHTML = clutter;
   });
 
+// Animate each span color as the user scrolls
 gsap.to("#page2>h1>span", {
   scrollTrigger: {
     trigger: `#page2>h1>span`,
     start: `top bottom`,
     end: `bottom top`,
     scroller: `#main`,
-    scrub: 0.5,
+    scrub: 0.5, // smooth scrub
   },
-  stagger: 0.2,
+  stagger: 0.2, // stagger each letter
   color: `#fff`,
 });
+
+// ====================== PAGE 3 CANVAS SEQUENCE ANIMATION ======================
 
 function canvas() {
   const canvas = document.querySelector("#page3>canvas");
   const context = canvas.getContext("2d");
 
+  // Set canvas size to full window
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  // Update canvas size on window resize
   window.addEventListener("resize", function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    render();
+    render(); // redraw the current frame
   });
 
+  // Return the image path for each frame based on index
   function files(index) {
     var data = `
   /assets/frames/frames00007.png
@@ -151,16 +161,16 @@ function canvas() {
   const frameCount = 67;
 
   const images = [];
-  const imageSeq = {
-    frame: 1,
-  };
+  const imageSeq = { frame: 1 };
 
+  // Preload all frames
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.src = files(i);
     images.push(img);
   }
 
+  // Animate frames based on scroll position
   gsap.to(imageSeq, {
     frame: frameCount - 1,
     snap: "frame",
@@ -175,12 +185,15 @@ function canvas() {
     onUpdate: render,
   });
 
+  // Ensure first image is rendered when loaded
   images[1].onload = render;
 
+  // Draw current frame on canvas
   function render() {
     scaleImage(images[imageSeq.frame], context);
   }
 
+  // Scale image to fit canvas while keeping aspect ratio
   function scaleImage(img, ctx) {
     var canvas = ctx.canvas;
     var hRatio = canvas.width / img.width;
@@ -201,6 +214,8 @@ function canvas() {
       img.height * ratio
     );
   }
+
+  // Pin the canvas during scrolling
   ScrollTrigger.create({
     trigger: "#page3",
     pin: true,
@@ -209,10 +224,12 @@ function canvas() {
     end: `250% top`,
   });
 }
-canvas();
 
-var clutter = "";
+canvas(); // Initialize page 3 animation
 
+// ====================== PAGE 4 TEXT ANIMATION ======================
+
+clutter = "";
 document
   .querySelector("#page4>h1")
   .textContent.split("")
@@ -233,6 +250,8 @@ gsap.to("#page4>h1>span", {
   stagger: 0.2,
   color: `#fff`,
 });
+
+// ====================== PAGE 5 CANVAS SEQUENCE ANIMATION ======================
 
 function canvas1() {
   const canvas = document.querySelector("#page5>canvas");
@@ -373,6 +392,7 @@ function canvas1() {
       img.height * ratio
     );
   }
+
   ScrollTrigger.create({
     trigger: "#page5",
     pin: true,
@@ -381,16 +401,17 @@ function canvas1() {
     end: `250% top`,
   });
 }
-canvas1();
 
-var clutter = "";
+canvas1(); // Initialize page 5 animation
 
+// ====================== PAGE 6 TEXT ANIMATION ======================
+
+clutter = "";
 document
   .querySelector("#page6>h1")
   .textContent.split("")
   .forEach(function (dets) {
     clutter += `<span>${dets}</span>`;
-
     document.querySelector("#page6>h1").innerHTML = clutter;
   });
 
@@ -405,6 +426,8 @@ gsap.to("#page6>h1>span", {
   stagger: 0.2,
   color: `#fff`,
 });
+
+// ====================== PAGE 7 CANVAS SEQUENCE ANIMATION ======================
 
 function canvas2() {
   const canvas = document.querySelector("#page7>canvas");
@@ -616,6 +639,7 @@ https://thisismagma.com/assets/home/lore/seq/136.webp?2
       img.height * ratio
     );
   }
+
   ScrollTrigger.create({
     trigger: "#page7",
     pin: true,
@@ -624,8 +648,12 @@ https://thisismagma.com/assets/home/lore/seq/136.webp?2
     end: `250% top`,
   });
 }
-canvas2();
 
+canvas2(); // Initialize page 7 animation
+
+// ====================== PAGE 7 CIRCLE ANIMATIONS ======================
+
+// Scale outer circle on scroll
 gsap.to(".page7-cir", {
   scrollTrigger: {
     trigger: `.page7-cir`,
@@ -637,6 +665,7 @@ gsap.to(".page7-cir", {
   scale: 1.5,
 });
 
+// Change background color of inner circle on scroll
 gsap.to(".page7-cir-inner", {
   scrollTrigger: {
     trigger: `.page7-cir-inner`,
